@@ -1,6 +1,7 @@
 'use client'
 
-import { addBookmark } from '@/app/actions/bookmarks'
+import { supabase } from '@/lib/supabase/client'
+
 import { useState } from 'react'
 
 export function BookmarkForm() {
@@ -10,8 +11,23 @@ export function BookmarkForm() {
   async function handleSubmit(formData: FormData) {
     setLoading(true)
     setError(null)
+
     try {
-      await addBookmark(formData)
+      const title = formData.get('title') as string
+      const url = formData.get('url') as string
+
+      // get current logged-in user
+      const { data: userData } = await supabase.auth.getUser()
+      const userId = userData.user?.id
+      if (!userId) throw new Error('You must be signed in to add bookmarks.')
+
+      // insert bookmark into Supabase
+      const { error } = await supabase
+        .from('bookmarks')
+        .insert({ title, url, user_id: userId })
+
+      if (error) throw error
+
       ;(document.getElementById('bookmark-form') as HTMLFormElement)?.reset()
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to add bookmark')

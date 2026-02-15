@@ -1,7 +1,7 @@
 'use client'
 
-import { createClient } from '@/lib/supabase/client'
-import { deleteBookmark } from '@/app/actions/bookmarks'
+import { supabase } from '@/lib/supabase/client'
+
 import { useEffect, useState } from 'react'
 import type { Database } from '@/types/database'
 
@@ -12,7 +12,6 @@ export function BookmarkList({ initialBookmarks }: { initialBookmarks: Bookmark[
   const [deletingId, setDeletingId] = useState<string | null>(null)
 
   useEffect(() => {
-    const supabase = createClient()
     const channel = supabase
       .channel('bookmarks-changes')
       .on(
@@ -40,7 +39,10 @@ export function BookmarkList({ initialBookmarks }: { initialBookmarks: Bookmark[
   async function handleDelete(id: string) {
     setDeletingId(id)
     try {
-      await deleteBookmark(id)
+      // delete bookmark directly using supabase client
+      const { error } = await supabase.from('bookmarks').delete().eq('id', id)
+      if (error) throw error
+
       setBookmarks((prev) => prev.filter((b) => b.id !== id))
     } finally {
       setDeletingId(null)
