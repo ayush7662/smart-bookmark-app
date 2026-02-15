@@ -3,7 +3,7 @@
 A bookmark manager with Google OAuth, built with Next.js (App Router), Supabase, and Tailwind CSS.
 
 
-image url show after sign in:  https://drive.google.com/file/d/137P-1SeYKGuHYixKo-U5Zi8Zhn7h3oGD/view?usp=sharing
+image url show after sign in:  https://drive.google.com/file/d/1nFCwWAkI9mZXcuMVBgiFAWUrm-8Y0GiQ/view?usp=sharing
 
 ## Project Structure
 
