@@ -3,6 +3,7 @@
 A bookmark manager with Google OAuth, built with Next.js (App Router), Supabase, and Tailwind CSS.
 
 ### Deployed on Vercel Live URL🎉:  https://smart-bookmark-app-1oie.vercel.app/
+### Github URL🎉: https://github.com/ayush7662/smart-bookmark-app/tree/main/Smart_BookMark_App
 
 
 image url show after sign in:  https://drive.google.com/file/d/1nFCwWAkI9mZXcuMVBgiFAWUrm-8Y0GiQ/view?usp=sharing
